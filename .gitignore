@@ -2,7 +2,7 @@ build/
 dist/
 env/
 MANIFEST
-sopel-ipython.egg-info/*
+sopel_ipython.egg-info/*
 *.pyc
 *.pyo
 *~

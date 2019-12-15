@@ -1,3 +1,13 @@
+sopel-ipython 0.0.2
+===================
+
+Fixed:
+* Packaging error
+
+Meta:
+* Requirements in `setup.cfg`; no more `requirements.txt`
+
+
 sopel-ipython 0.0.1
 ===================
 
