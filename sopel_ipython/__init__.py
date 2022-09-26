@@ -2,6 +2,7 @@
 """
 ipython.py - Sopel IPython Console Module
 Copyright © 2014, Elad Alfassa <elad@fedoraproject.org>
+Copyright © 2022, dgw, technobabbl.es
 Licensed under the Eiffel Forum License 2.
 
 https://sopel.chat
@@ -13,11 +14,7 @@ import sys
 import sopel
 import sopel.module
 
-import IPython
-if hasattr(IPython, 'terminal'):
-    from IPython.terminal.embed import InteractiveShellEmbed
-else:
-    from IPython.frontend.terminal.embed import InteractiveShellEmbed
+from IPython.terminal.embed import InteractiveShellEmbed
 
 
 console = None
