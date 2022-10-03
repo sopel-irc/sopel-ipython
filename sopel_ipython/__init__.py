@@ -15,9 +15,14 @@ import sopel
 import sopel.module
 
 from IPython.terminal.embed import InteractiveShellEmbed
+from traitlets.config import Config
 
 
 console = None
+# need to disable history to avoid SQLite ProgrammingError exceptions
+# see https://github.com/ipython/ipython/issues/680 for other workaround ideas
+ipython_config = Config()
+ipython_config.HistoryManager.enabled = False
 
 
 @sopel.module.commands('console')
@@ -48,7 +53,7 @@ def interactive_shell(bot, trigger):
     exitmsg = 'Interactive shell closed'
 
     console = InteractiveShellEmbed(banner1=banner1, banner2=banner2,
-                                    exit_msg=exitmsg)
+                                    exit_msg=exitmsg, config=ipython_config)
 
     bot.memory['iconsole_running'] = True
     bot.say('console started')
