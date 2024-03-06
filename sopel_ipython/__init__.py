@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 ipython.py - Sopel IPython Console Module
 Copyright © 2014, Elad Alfassa <elad@fedoraproject.org>
@@ -27,7 +26,7 @@ def interactive_shell(bot, trigger):
         bot.say('A tty is required to start the console')
         return
     if bot._daemon:
-        bot.say('Can\'t start console when running as a daemon')
+        bot.say("Can't start console when running as a daemon")
         return
 
     # Backup stderr/stdout wrappers
@@ -44,8 +43,8 @@ def interactive_shell(bot, trigger):
         exit_msg='Interactive shell closed',
     )
 
-    bot.say('console started')
-    bot.memory['ipython_console']()
+    bot.say('Starting console')
+    bot.memory['ipython_console']()  # blocks until console is closed (Ctrl-D etc.)
     del bot.memory['ipython_console']
 
     # Restore stderr/stdout wrappers
