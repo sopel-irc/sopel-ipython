@@ -11,8 +11,7 @@ from __future__ import unicode_literals, absolute_import, print_function, divisi
 
 import sys
 
-import sopel
-import sopel.module
+from sopel import plugin
 
 from IPython.terminal.embed import InteractiveShellEmbed
 from traitlets.config import Config
@@ -25,8 +24,8 @@ ipython_config = Config()
 ipython_config.HistoryManager.enabled = False
 
 
-@sopel.module.commands('console')
-@sopel.module.require_admin('Only admins can start the interactive console')
+@plugin.commands('console')
+@plugin.require_admin('Only admins can start the interactive console')
 def interactive_shell(bot, trigger):
     """Starts an interactive IPython console"""
     global console
