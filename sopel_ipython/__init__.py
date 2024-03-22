@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 ipython.py - Sopel IPython Console Module
 Copyright © 2014, Elad Alfassa <elad@fedoraproject.org>
@@ -16,22 +15,18 @@ from sopel import plugin
 from IPython.terminal.embed import InteractiveShellEmbed
 
 
-console = None
-
-
 @plugin.commands('console')
 @plugin.require_admin('Only admins can start the interactive console')
 def interactive_shell(bot, trigger):
     """Starts an interactive IPython console"""
-    global console
-    if bot.memory.get('iconsole_running', False):
+    if bot.memory.get('ipython_console', None):
         bot.say('Console already running')
         return
     if not sys.__stdout__.isatty():
         bot.say('A tty is required to start the console')
         return
     if bot._daemon:
-        bot.say('Can\'t start console when running as a daemon')
+        bot.say("Can't start console when running as a daemon")
         return
 
     # Backup stderr/stdout wrappers
@@ -42,17 +37,15 @@ def interactive_shell(bot, trigger):
     sys.stdout = sys.__stdout__
     sys.stderr = sys.__stderr__
 
-    banner1 = 'Sopel interactive shell (embedded IPython)'
-    banner2 = '`bot` and `trigger` are available. To exit, type exit'
-    exitmsg = 'Interactive shell closed'
+    bot.memory['ipython_console'] = InteractiveShellEmbed(
+        banner1='Sopel interactive shell (embedded IPython)',
+        banner2='`bot` and `trigger` are available; type `exit` to quit',
+        exit_msg='Interactive shell closed',
+    )
 
-    console = InteractiveShellEmbed(banner1=banner1, banner2=banner2,
-                                    exit_msg=exitmsg)
-
-    bot.memory['iconsole_running'] = True
-    bot.say('console started')
-    console()
-    bot.memory['iconsole_running'] = False
+    bot.say('Starting console')
+    bot.memory['ipython_console']()  # blocks until console is closed (Ctrl-D etc.)
+    del bot.memory['ipython_console']
 
     # Restore stderr/stdout wrappers
     sys.stdout = old_stdout
