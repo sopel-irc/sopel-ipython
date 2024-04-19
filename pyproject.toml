@@ -14,7 +14,7 @@ readme = { file=["README.md", "NEWS"], content-type="text/markdown" }
 
 [project]
 name = "sopel-ipython"
-version = "0.0.2"
+version = "0.1.0"
 description = "IPython console plugin for Sopel IRC bots"
 
 authors = [
@@ -47,7 +47,7 @@ keywords = [
 
 requires-python = ">=3.8, <4"
 dependencies = [
-    "sopel>=8.0",
+    "sopel>=8.0.0.dev0",
     "ipython>=8.0",
 ]
 
